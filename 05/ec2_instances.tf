@@ -14,8 +14,6 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [aws_security_group.allow_http.id]
   user_data              = file("ec2-user-data.sh")
   key_name               = aws_key_pair.ec2.id
-  iam_instance_profile   = aws_iam_role.ec2_role.id
-
   tags = {
     "Name"       = "My First Instance"
     "Department" = "Finance"
