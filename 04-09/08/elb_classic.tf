@@ -1,6 +1,10 @@
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 resource "aws_elb" "bar" {
   name                        = "my-demo-clb"
-  availability_zones          = ["ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1c"]
+  availability_zones          = [for az in data.aws_availability_zones.available.ids : az]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
   connection_draining         = true
